@@ -12,15 +12,11 @@ Route::get('/', function () {
 });
 
 Route::middleware('guest')->group(function () {
-    Route::get('/register', [RegisteredUserController::class, 'index']);
     Route::post('/register', [RegisteredUserController::class, 'create']);
-    Route::get('/login', [SessionController::class, 'index']);
     Route::post('/login', [SessionController::class, 'create']);
 });
 
 Route::middleware('auth')->group(function (){
-    Route::get('/profile', [ProfileController::class, 'index']);
-    Route::get('/purchases', [PurchaseController::class, 'getPurchases']);
     Route::delete('/logout', [SessionController::class, 'destroy']);
     Route::get('/rewards', [RewardsController::class, 'getRewards']);
     Route::get('/loyalty/points', [ProfileController::class, 'getPoints']);
@@ -28,7 +24,8 @@ Route::middleware('auth')->group(function (){
 
 Route::post('/purchase', [PurchaseController::class, 'addPurchase']);
 
-Route::view('/test', 'test');
+Route::middleware('auth:sanctum')->get('/purchases', [PurchaseController::class, 'getPurchases']);
+
 
 
 

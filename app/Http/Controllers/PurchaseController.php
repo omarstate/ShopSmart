@@ -9,7 +9,7 @@ class PurchaseController extends Controller
 {
     public function getPurchases()
     {
-        $user = Auth::user();
+        $user = request()->user();
         $purchases = $user->purchases()->get();
         return response($purchases);
     }
@@ -21,6 +21,8 @@ class PurchaseController extends Controller
             'amount' => ['required', 'numeric', 'min:1'],
             'purchase_date' => ['required', 'date'],
         ]);
+
+
 
         $user = Auth::user();
         $points = ($validated['amount'] / 10);
