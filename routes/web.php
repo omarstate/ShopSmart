@@ -13,8 +13,9 @@ Route::get('/', function () {
 
 Route::middleware('guest')->group(function () {
     Route::post('/register', [RegisteredUserController::class, 'create']);
-    Route::post('/login', [SessionController::class, 'create']);
 });
+
+Route::post('/login', [SessionController::class, 'create'])->middleware('api');
 
 Route::middleware('auth')->group(function (){
     Route::delete('/logout', [SessionController::class, 'destroy']);
