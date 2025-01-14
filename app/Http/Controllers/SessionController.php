@@ -40,8 +40,13 @@ class SessionController extends Controller
 
     public function destroy()
     {
+        // Logs out the Authenticated User
         Auth::logout();
 
-        return redirect('/');
+        // Returns the response
+        return response()->json([
+            'message' => "Logged out successfully"
+        ], 200);
+
     }
 }
